@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Store</title>
+    <%= csrf_meta_tags %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body class='<%= controller.controller_name %>'>
+
+
+  	<div id="banner">
+  		<%= @page_title || "Our Products" %>
+      <% if session[:user_id] %>
+        <%= image_tag("bs.jpg", size: "100x120") %>
+      <% else %>
+        <%= image_tag("bs.jpg", size: "60x50") %>
+      <% end %>
+      <% if session[:user_id] %>
+          <ul>
+            <li><%= link_to 'Orders', orders_path %></li>
+            <li><%= link_to 'Products', products_path %></li>
+            <li><%= link_to 'Users', users_path %></li>
+          </ul>
+          <div id="login_button"><%= link_to 'LOGOUT', logout_path, method: :delete %></div>
+      <% else %>
+        <div id="login_button"><%= link_to 'LOGIN', login_path %></div>
+      <% end %>
+
+  	</div>
+  	<div id="columns">
+  		  <div id="side"><div style=“color:yellow”>
+          <h1>My Cart</h1>
+        </div>
+        <div id="cart">
+          <%= render @cart %>
+        </div>
+
+        <ul>
+          <li><a href="/shopper/index">Home</a></li>
+          <li><a href="/products/questions">Questions</a></li>
+          <li><a href="/products/news">News</a></li>
+          <li><a href="/products/contact">Contact</a></li>
+        </ul>
+  		</div>
+  		<div id="main">
+    		<%= yield %>
+    	</div>
+    </div>
+  </body>
+</html>
